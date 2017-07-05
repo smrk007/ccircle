@@ -86,9 +86,16 @@ def hard():
     |         |   |     |   | |     | |     |           |     | P
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   '''
-
   s = '\n'.join([x.strip() for x in s.strip().split('\n')])
   s = s.replace('+', 'W')
   s = s.replace('-', 'W')
   s = s.replace('|', 'W')
   return s
+
+def custom():
+  return '''
+    C---W
+    WWW-W
+    WP--W
+    WWWWW
+  '''
