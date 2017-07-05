@@ -1,1 +1,1 @@
-print("Yo so una gato!")
+print("Yo soy una gato!")
