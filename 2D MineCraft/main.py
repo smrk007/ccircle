@@ -1,5 +1,6 @@
 import ccircle
 from abc import *
+from math import floor
 
 window = ccircle.Window()
 
@@ -73,6 +74,7 @@ class Player:
         if key == 'right':
             self.velX = 0.5
 
+
     def draw(self):
         window.drawCircle(self.posX, self.posY, self.size, self.color[0], self.color[1], self.color[2])
 
@@ -97,9 +99,29 @@ while window.isOpen():
 
     # Physics and
 
-    player.move(keyDown())
-    player.posX += player.velX
-    player.posY += player.velY
+    player.move(keyDown())  # Sets an intended velocity
+
+    xSpace = int(floor(player.posX / world[0][0].size))
+    ySpace = int(floor(player.posY / world[0][0].size))
+
+    # Player X dimension collision and motion
+    if player.posX + player.velX < xSpace*world[0][0].size + player.size and world[ySpace][xSpace-1].solid:
+        player.posX = xSpace*world[0][0].size + player.size
+    elif player.posX + player.velX > (xSpace+1)*world[0][0].size - player.size and world[ySpace][xSpace+1].solid:
+        player.posX = (xSpace+1)*world[0][0].size - player.size
+    else:
+        player.posX += player.velX
+
+    # Player Y dimension collision and motion
+    if player.posY + player.velY < ySpace*world[0][0].size + player.size and world[ySpace-1][xSpace].solid:
+        player.posY = ySpace*world[0][0].size + player.size
+    elif player.posY + player.velY > (ySpace+1)*world[0][0].size - player.size and world[ySpace+1][xSpace].solid:
+        player.posY = (ySpace+1)*world[0][0].size - player.size
+    else:
+        player.posY += player.velY
+
+
+
 
     # Graphics
     for layer in world:
