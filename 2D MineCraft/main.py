@@ -63,6 +63,7 @@ class Player:
         self.velX = 0
         self.velY = 0
         self.color = (1,1,1)
+        self.size = 15
 
     def move(self, key):
         self.velX = 0
@@ -73,10 +74,10 @@ class Player:
             self.velX = 0.5
 
     def draw(self):
-        window.drawCircle(self.posX, self.posY, 15, self.color[0], self.color[1], self.color[2])
+        window.drawCircle(self.posX, self.posY, self.size, self.color[0], self.color[1], self.color[2])
 
 # World Initialization
-worldSize = 20
+worldSize = 10
 world = []
 for i in range(worldSize):
     row = []
