@@ -62,9 +62,9 @@ class Tile:
                         self.posY*self.size +  shift[1],
                         self.size,
                         self.size,
-                        self.color[0]*((100+self.health)/200),
-                        self.color[1]*((100+self.health)/200),
-                        self.color[2]*((100+self.health)/200))
+                        self.color[0]*((200+self.health)/300),
+                        self.color[1]*((200+self.health)/300),
+                        self.color[2]*((200+self.health)/300))
 
     def setType(self,tileType):
         if tileType == "dirt":
@@ -75,7 +75,11 @@ class Tile:
             self.solid = False
 
     def update(self):
-        if self.health <= 0:
+        if self.health < 100:
+            self.health += 0.003
+        if self.health > 100:
+            self.health = 100
+        if self.health < 0:
             self.setType('air')
             self.health = 100
 
@@ -112,13 +116,14 @@ class Player:
             self.velX = 0.3
             self.direction = 'right'
         if (keys['up'] or keys['w']) and self.jump:
-            self.velY = -0.5
+            self.velY = -0.3
             self.jump = False
             self.direction = 'up'
         if (keys['down']):
             self.direction = 'down'
 
     def draw(self, shift):
+
         window.drawCircle(self.posX + shift[0], self.posY + shift[1], self.size, self.color[0], self.color[1], self.color[2])
 
     def update(self):
@@ -170,7 +175,7 @@ while window.isOpen():
     if ccircle.isKeyDown('space'):
         tX = int(floor(player.target[0] / world[0][0].size))
         tY = int(floor(player.target[1] / world[0][0].size))
-        world[tY][tX].health -= 0.1
+        world[tY][tX].health -= 0.3
 
 
     # Player X dimension collision and motion
@@ -188,7 +193,7 @@ while window.isOpen():
         player.posY = (ySpace+1)*world[0][0].size - player.size
         player.jump = True
     else:
-        player.velY += 0.003
+        player.velY += 0.001
 
         player.posY += player.velY
 
@@ -206,7 +211,7 @@ while window.isOpen():
 
     for i in range(topBound, botBound+1):
         for j in range(leftBound, rightBound+1):
-            world[i][i].update()
+            world[i][j].update()
             world[i][j].draw(shift)
     player.update()
     player.draw(shift)

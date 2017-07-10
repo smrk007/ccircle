@@ -19,9 +19,7 @@ Fix ceiling collision
 7-10-2017:
 
 Features to add:
-Tile swapping
-Tile change in response to death
-Damage mechanism
+Block Creation
 
 Features Implemented:
 Camera focus on player
@@ -30,3 +28,6 @@ WASD controls
 Fix ceiling collision
 
 Color change in response to health
+Tile swapping
+Tile change in response to death
+Damage mechanism
