@@ -1,8 +1,9 @@
 import ccircle
 from abc import *
-from math import floor
+from math import *
 
-window = ccircle.Window()
+window = ccircle.Window("2D Minecraft", 450, 450)
+center = (225, 225)
 
 '''
 Functions:
@@ -29,6 +30,11 @@ def keyDown(): # Returns string of whatever key is down, None if no key
             out[key] = False
 
     return out
+
+def camShift(player, center):
+    x = center[0] - player.posX
+    y = center[1] - player.posY
+    return (x,y)
 
 '''
 Classes:
@@ -88,7 +94,7 @@ class Player:
         window.drawCircle(self.posX, self.posY, self.size, self.color[0], self.color[1], self.color[2])
 
 # World Initialization
-worldSize = 20
+worldSize = 15
 world = []
 for i in range(worldSize):
     row = []
@@ -139,6 +145,13 @@ while window.isOpen():
 
 
     # Graphics
+
+    shift = camShift(player, center)
+    leftBound = max(floor(xSpace-center[0]/world[0][0].size), 0)
+    rightBound = min(worldSize-1, int(ceil(xSpace + center[0]/world[0][0].size)))
+    topBound = max(floor(ySpace-center[1]/world[0][0].size), 0)
+    botBound = min(worldSize-1, int(ceil(xSpace + center[0]/world[0][0].size)))
+
     for layer in world:
         for tile in layer:
             tile.draw()
