@@ -12,17 +12,23 @@ keyDown
 
 def keyDown(): # Returns string of whatever key is down, None if no key
 
+    out = {}
+
     letters = 'abcdefghijklmnopqrstuvwxyz'
     for char in letters:
         if ccircle.isKeyDown(char):
-            return char
+            out[char] = True
+        else:
+            out[char] = False
 
     etc = ['backspace','enter','esc','space','left','right','up','down']
     for key in etc:
         if ccircle.isKeyDown(key):
-            return key
+            out[key] = True
+        else:
+            out[key] = False
 
-    return None # If no key is down
+    return out
 
 '''
 Classes:
@@ -65,30 +71,36 @@ class Player:
         self.velY = 0
         self.color = (1,1,1)
         self.size = 15
+        self.jump = True
 
-    def move(self, key):
+    def move(self, keys):
         self.velX = 0
-        self.velY = 0
-        if key == 'left':
-            self.velX = -0.5
-        if key == 'right':
-            self.velX = 0.5
+        if keys['left']:
+            self.velX = -1.0
+        if keys['right']:
+            self.velX = 1.0
+        if keys['up'] and self.jump:
+            self.velY = -2
+            self.jump = False
 
 
     def draw(self):
         window.drawCircle(self.posX, self.posY, self.size, self.color[0], self.color[1], self.color[2])
 
 # World Initialization
-worldSize = 10
+worldSize = 20
 world = []
 for i in range(worldSize):
     row = []
     for j in range(worldSize):
-        if i < 10:
+        if i == 4 and j == 7:
+            row.append(dirtTile(j,i))
+        elif i < 5:
             row.append(noneTile(j,i))
         else:
             row.append(dirtTile(j,i))
     world.append(row)
+
 
 player = Player(30,30)
 
@@ -117,7 +129,10 @@ while window.isOpen():
         player.posY = ySpace*world[0][0].size + player.size
     elif player.posY + player.velY > (ySpace+1)*world[0][0].size - player.size and world[ySpace+1][xSpace].solid:
         player.posY = (ySpace+1)*world[0][0].size - player.size
+        player.jump = True
     else:
+        player.velY += 0.03
+
         player.posY += player.velY
 
 
