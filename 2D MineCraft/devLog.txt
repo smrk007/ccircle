@@ -19,7 +19,10 @@ Fix ceiling collision
 7-10-2017:
 
 Features to add:
-Block Creation
+Item dropping
+Inventory
+Item picking up
+Item placing from inventory
 
 Features Implemented:
 Camera focus on player

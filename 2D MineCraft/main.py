@@ -1,140 +1,11 @@
 import ccircle
-from abc import *
+from tile import Tile
 from math import *
+from otherCrap import *
+from player import *
 
 window = ccircle.Window("2D Minecraft", 450, 450)
 center = (225, 225)
-
-'''
-Functions:
-
-keyDown
-'''
-
-def keyDown(): # Returns string of whatever key is down, None if no key
-
-    out = {}
-
-    letters = 'abcdefghijklmnopqrstuvwxyz'
-    for char in letters:
-        if ccircle.isKeyDown(char):
-            out[char] = True
-        else:
-            out[char] = False
-
-    etc = ['backspace','enter','esc','space','left','right','up','down']
-    for key in etc:
-        if ccircle.isKeyDown(key):
-            out[key] = True
-        else:
-            out[key] = False
-
-    return out
-
-def camShift(player, center):
-    x = center[0] - player.posX
-    y = center[1] - player.posY
-    return (x,y)
-
-'''
-Classes:
-
-Tile 
-noneTile
-dirtTile
-
-player
-'''
-class Tile:
-    # __metaclass__ = ABCMeta
-
-    def __init__(self, posX, posY):
-        self.size = 30
-        self.posX = posX
-        self.posY = posY
-        self.health = 100
-        self.color = [0,0,0]
-        self.solid = False
-
-    #@abstractmethod
-    def draw(self, shift):
-        window.drawRect(self.posX*self.size + shift[0],
-                        self.posY*self.size +  shift[1],
-                        self.size,
-                        self.size,
-                        self.color[0]*((200+self.health)/300),
-                        self.color[1]*((200+self.health)/300),
-                        self.color[2]*((200+self.health)/300))
-
-    def setType(self,tileType):
-        if tileType == "dirt":
-            self.solid = True
-            self.color = [1,1,1]
-        if tileType == "air":
-            self.color = [0,0,0]
-            self.solid = False
-
-    def update(self):
-        if self.health < 100:
-            self.health += 0.003
-        if self.health > 100:
-            self.health = 100
-        if self.health < 0:
-            self.setType('air')
-            self.health = 100
-
-'''
-class noneTile(Tile):
-    def __init__(self, posX, posY):
-        super().__init__(posX, posY)
-class dirtTile(Tile):
-    def __init__(self, posX, posY):
-        super().__init__(posX, posY)
-        self.solid = True
-        self.color = (1,1,1)
-'''
-
-class Player:
-
-    def __init__(self, posX, posY):
-        self.posX = posX
-        self.posY = posY
-        self.velX = 0
-        self.velY = 0
-        self.color = (1,1,1)
-        self.size = 10
-        self.jump = True
-        self.direction = 'right'
-        self.target = (0,0)
-
-    def move(self, keys):
-        self.velX = 0
-        if keys['left'] or keys['a']:
-            self.velX = -0.3
-            self.direction = 'left'
-        if keys['right'] or keys['d']:
-            self.velX = 0.3
-            self.direction = 'right'
-        if (keys['up'] or keys['w']) and self.jump:
-            self.velY = -0.3
-            self.jump = False
-            self.direction = 'up'
-        if (keys['down']):
-            self.direction = 'down'
-
-    def draw(self, shift):
-
-        window.drawCircle(self.posX + shift[0], self.posY + shift[1], self.size, self.color[0], self.color[1], self.color[2])
-
-    def update(self):
-        if self.direction == 'left':
-            self.target = (self.posX - 30, self.posY)
-        if self.direction == 'right':
-            self.target = (self.posX + 30, self.posY)
-        if self.direction == 'up':
-            self.target = (self.posX, self.posY - 30)
-        if self.direction == 'down':
-            self.target = (self.posX, self.posY + 30)
 
 # World Initialization
 worldSize = 300
@@ -143,24 +14,24 @@ for i in range(worldSize):
     row = []
     for j in range(worldSize):
         if i == 4 and j == 7:
-            tile = Tile(j,i)
+            tile = Tile(j, i, window)
             tile.setType('dirt')
             row.append(tile)
         elif i == 2 and j == 7:
-            tile = Tile(j,i)
+            tile = Tile(j, i, window)
             tile.setType('dirt')
             row.append(tile)
         elif i < 5:
-            tile = Tile(j,i)
+            tile = Tile(j, i, window)
             tile.setType('air')
             row.append(tile)
         else:
-            tile = Tile(j,i)
+            tile = Tile(j, i, window)
             tile.setType('dirt')
             row.append(tile)
     world.append(row)
 
-player = Player(30,30)
+player = Player(30, 30, window)
 
 
 while window.isOpen():
