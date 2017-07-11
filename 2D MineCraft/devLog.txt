@@ -40,9 +40,6 @@ Damage mechanism
 7-11-2017:
 
 Features to add:
-Item abstract class
-Item drawing
-Item dropping
 Inventory
 Item picking up
 Item placing from inventory
@@ -51,3 +48,8 @@ Item collisions (so they can fall)
 Sprite pack into Image object
 Tiles into image
 Cyan background
+
+Implemented Features:
+Item Class
+Item Drawing
+Item Dropping

@@ -59,7 +59,7 @@ class Player:
         # Player X dimension collision and motion
         if self.posX + self.velX < self.xSpace * world[0][0].size + self.size and world[self.ySpace][self.xSpace - 1].solid:
             self.posX = self.xSpace * world[0][0].size + self.size
-        elif self.posX + self.velX > (self.xSpace + 1) * world[0][0].size - self.size and world[self.ySpace][self.xSpace].solid:
+        elif self.posX + self.velX > (self.xSpace + 1) * world[0][0].size - self.size and world[self.ySpace][self.xSpace+1].solid:
             self.posX = (self.xSpace + 1) * world[0][0].size - self.size
         else:
             self.posX += self.velX

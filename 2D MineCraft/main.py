@@ -32,6 +32,7 @@ for i in range(worldSize):
             row.append(tile)
     world.append(row)
 
+objects = []
 player = Player(30, 30, window)
 
 
@@ -44,13 +45,20 @@ while window.isOpen():
 
     leftBound = max(floor(player.xSpace-center[0]/world[0][0].size), 0)
     rightBound = min(worldSize-1, int(ceil(player.xSpace + center[0]/world[0][0].size)))
-    topBound = max(floor(player.ySpace-cente   r[1]/world[0][0].size), 0)
+    topBound = max(floor(player.ySpace-center[1]/world[0][0].size), 0)
     botBound = min(worldSize-1, int(ceil(player.ySpace + center[0]/world[0][0].size)))
 
     for i in range(topBound, botBound+1):
         for j in range(leftBound, rightBound+1):
-            world[i][j].update()
+            world[i][j].update(window, objects)
             world[i][j].draw(shift)
+
+    for object in objects:
+        object.update(world)
+        object.draw(shift)
+
+
+
     player.update(world)
     player.draw(shift)
 
