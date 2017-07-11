@@ -41,6 +41,7 @@ Damage mechanism
 
 Features to add:
 Item abstract class
+Item drawing
 Item dropping
 Inventory
 Item picking up
