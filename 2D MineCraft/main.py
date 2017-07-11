@@ -43,7 +43,7 @@ class Tile:
     __metaclass__ = ABCMeta
 
     def __init__(self, posX, posY):
-        self.size = 30
+        self.size = 60
         self.posX = posX
         self.posY = posY
         self.health = 100
@@ -70,7 +70,7 @@ class Player:
         self.velX = 0
         self.velY = 0
         self.color = (1,1,1)
-        self.size = 15
+        self.size = 30
         self.jump = True
 
     def move(self, keys):
@@ -80,7 +80,7 @@ class Player:
         if keys['right']:
             self.velX = 1.0
         if keys['up'] and self.jump:
-            self.velY = -2
+            self.velY = -3
             self.jump = False
 
 
@@ -88,7 +88,7 @@ class Player:
         window.drawCircle(self.posX, self.posY, self.size, self.color[0], self.color[1], self.color[2])
 
 # World Initialization
-worldSize = 20
+worldSize = 15
 world = []
 for i in range(worldSize):
     row = []
@@ -131,7 +131,7 @@ while window.isOpen():
         player.posY = (ySpace+1)*world[0][0].size - player.size
         player.jump = True
     else:
-        player.velY += 0.03
+        player.velY += 0.07
 
         player.posY += player.velY
 
