@@ -1,5 +1,5 @@
 # Your solution goes in this file!
-
+import math
 '''
   --- ACCOUNT ------------------------------------------------------------------
 
@@ -46,11 +46,11 @@ class StockTrader:
     #    0.5 -> moderate
     #    1.0 -> hardest
     def getDifficulty(self):
-        return 0.0
+        return 1.0
 
     # Controls how fast the simulation runs; 0 = fastest
     def getPauseTime(self):
-        return 0.01
+        return 0.0
 
     # Use different numbers to get different random variations of the simulation
     def getSeed(self):
@@ -61,15 +61,15 @@ class StockTrader:
         # This is a very basic and bad starter strategy: get a list of stocks, buy any stock that is less than $10
         # (if we can afford it); sell any stock that is more than $20 (if we own it). You must do better than this!
         syms = market.getStockSymbols()
-
         for sym in syms:
-            if len(market.getHistory(sym)) > 100:
+            if len(market.getHistory(sym)) > 200:
+                print(len(market.getHistory(sym)))
                 prices = market.getHistory(sym)[:]
                 prices.sort()
-                if market.getPrice(sym) < prices[25]:
-                    market.buy(account,sym,1)
-                if market.getPrice(sym) > prices[75]:
-                    market.sell(account,sym,1)
+                if market.getPrice(sym) < prices[25] and account.getBalance() > market.getPrice(sym):
+                    market.buy(account,sym,math.floor(account.getBalance() / market.getPrice(sym)*0.9))
+                if market.getPrice(sym) > prices[75] and account.getShares(sym) > 0:
+                    market.sell(account,sym,account.getShares(sym))
         '''
         for sym in syms:
             price = market.getPrice(sym)
