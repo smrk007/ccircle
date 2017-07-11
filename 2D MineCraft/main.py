@@ -147,14 +147,14 @@ while window.isOpen():
     # Graphics
 
     shift = camShift(player, center)
-    leftBound = max(floor(xSpace-center[0]/world[0][0].size), 0)
+    leftBound = max(int(floor(xSpace-center[0]/world[0][0].size)), 0)
     rightBound = min(worldSize-1, int(ceil(xSpace + center[0]/world[0][0].size)))
-    topBound = max(floor(ySpace-center[1]/world[0][0].size), 0)
+    topBound = max(int(floor(ySpace-center[1]/world[0][0].size)), 0)
     botBound = min(worldSize-1, int(ceil(xSpace + center[0]/world[0][0].size)))
 
-    for layer in world:
-        for tile in layer:
-            tile.draw()
+    for i in range(leftBound,rightBound+1)
+        for j in range(topBound,botBound+1):
+            world[i][j].draw()
     player.draw()
 
     window.update()
