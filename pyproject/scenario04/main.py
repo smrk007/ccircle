@@ -12,8 +12,8 @@ class Vector:
         self.b = b
 
     def length(self):
-        p1 = (a[0]-b[0])**2
-        p2 = (a[1]-b[1])**2
+        p1 = (self.a)**2
+        p2 = (self.b)**2
         return sqrt(p1+p2)
 
     def __sub__(self, vec2):
@@ -34,43 +34,26 @@ def getflow(playerPos, targetPos, TF):
     P = 0
     C = 0
     if TF: # Boss
-        A = 0.9
-        K = 1.5
-        P = -1.2
+        A = 0.00009
+        K = 5.5
+        P = -1
         C = 0
         dP = playerPos - targetPos
         dis = dP.length()
         unit = dP.direction()
         weight = A / ((0.1**K)*dis)**P
-        return unit.dot(weight)
+        return Vector(0,0)
     else:
         dP = targetPos - playerPos
-        return dP.direction()
+        return dP.direction().dot(5)
 
 while True:
-
-    flow = [0, 0]
-
-    (x,y) = con.send('get_pos')
-    playerPos = Vector(x,y)
-
-    (x,y) = con.send('get_boss_pos')
-    bossPos = Vector(x,y)
-
-    rewardIDs = con.send('get_reward_ids')
-    rewardPos = []
-    for ID in rewardIDs:
-        (x,y) = con.send('get_reward_pos',{'id': ID})
-        reward = Vector(x,y)
-        rewardPos.append(reward)
-
-    flow = flow + getflow(playerPos, bossPos, True)
-    for pos in rewardPos:
-        flow = flow + getflow(playerPos, pos, False)
-
-    flowDir = flow.direction()
-    vel = flowDir * 50
-
+    vel = [0,0]
+    if ccircle.isKeyDown('left'): vel = [-50,50]
+    if ccircle.isKeyDown('right'): vel = [50,50]
+    if ccircle.isKeyDown('up'): vel = [-50,-50]
+    if ccircle.isKeyDown('down'): vel = [50,-50]
+    if ccircle.isKeyDown('space'): con.send('damage_boss')
     con.send('set_velocity', {'vx': vel[0], 'vy': vel[1]})
 
 

@@ -26,11 +26,6 @@ class _Connection:
         if msg_data and type(msg_data) != dict:
             raise TypeError('Send expected a dict for argument 2 (msg_data), instead got {}'.format(type(msg_data)))
 
-        # Throttle request rate using a simple sleep
-        while time.time() - self._last_msg < config.MIN_REQUEST_WAIT:
-            time.sleep(config.MIN_REQUEST_WAIT)
-        self._last_msg = time.time()
-
         # Open a connection
         sock = None
         try:
