@@ -5,49 +5,71 @@ from math import *
 con = connection.create()
 con.send('set_name', {'name': 'smrk007'})
 
-def distance(a, b):
-    return sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
+class Vector:
 
-def sub(a, b):
-    return [a[0] - b[0], a[1] - b[1]]
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
 
-def add(a, b):
-    return [a[0] + b[0], a[1] + b[1]]
+    def length(self):
+        p1 = (a[0]-b[0])**2
+        p2 = (a[1]-b[1])**2
+        return sqrt(p1+p2)
+
+    def __sub__(self, vec2):
+        return Vector(self.a - vec2.a, self.b - vec2.b)
+
+    def __add__(self, vec2):
+        return Vector(self.a + vec2.a, self.b - vec2.b)
+
+    def dot(self, scalar):
+        return Vector(self.a * scalar, self.b * scalar)
+
+    def direction(self):
+        return self.dot(1/self.length())
 
 def getflow(playerPos, targetPos, TF):
+    A = 0
+    K = 0
+    P = 0
+    C = 0
     if TF: # Boss
-        A = sub(playerPos, targetPos)
-        return [1/A[0]**2, 1/A[1]**2]
+        A = 0.9
+        K = 1.5
+        P = -1.2
+        C = 0
+        dP = playerPos - targetPos
+        dis = dP.length()
+        unit = dP.direction()
+        weight = A / ((0.1**K)*dis)**P
+        return unit.dot(weight)
     else:
-        A = sub(targetPos, playerPos)
-        return[(A[0]/abs(A[0]))/A[0]**2, (A[1]/abs(A[1]))/A[1]**2]
-
-def unitvector(flow):
-    mag = distance((0, 0), flow)
-    return dot(flow, 1/mag)
-
-def dot(a, b):
-    return [a[0]*b, a[1]*b]
+        dP = targetPos - playerPos
+        return dP.direction()
 
 while True:
 
     flow = [0, 0]
 
-    playerPos = con.send('get_pos')
-    print(playerPos)
-    bossPos = con.send('get_boss_pos')
-    print(bossPos)
+    (x,y) = con.send('get_pos')
+    playerPos = Vector(x,y)
+
+    (x,y) = con.send('get_boss_pos')
+    bossPos = Vector(x,y)
+
     rewardIDs = con.send('get_reward_ids')
     rewardPos = []
     for ID in rewardIDs:
-        rewardPos.append(con.send('get_reward_pos',{'id' : ID}))
+        (x,y) = con.send('get_reward_pos',{'id': ID})
+        reward = Vector(x,y)
+        rewardPos.append(reward)
 
-    flow = add(flow, getflow(playerPos, bossPos, True))
+    flow = flow + getflow(playerPos, bossPos, True)
     for pos in rewardPos:
-        flow = add(flow, getflow(playerPos, pos, False))
+        flow = flow + getflow(playerPos, pos, False)
 
-    direction = unitvector(flow)
-    vel = dot(direction, 50)
+    flowDir = flow.direction()
+    vel = flowDir * 50
 
     con.send('set_velocity', {'vx': vel[0], 'vy': vel[1]})
 
