@@ -1,10 +1,12 @@
 import json
 import select
 import socket
+import sys
 import time
 
 import server.config as config
 
+LOCAL = '--local' in sys.argv
 
 class _Connection:
     """ Wraps a connection to the Scenario 4 server.
@@ -25,11 +27,6 @@ class _Connection:
             raise TypeError('Send expected string for argument 1 (msg_name), instead got {}'.format(type(msg_name)))
         if msg_data and type(msg_data) != dict:
             raise TypeError('Send expected a dict for argument 2 (msg_data), instead got {}'.format(type(msg_data)))
-
-        # Throttle request rate using a simple sleep
-        while time.time() - self._last_msg < config.MIN_REQUEST_WAIT:
-            time.sleep(config.MIN_REQUEST_WAIT)
-        self._last_msg = time.time()
 
         # Open a connection
         sock = None
@@ -66,6 +63,8 @@ class _Connection:
             print('ERROR: {}'.format(e))
             return None
 
+HOST = config.SERVER_HOST if not LOCAL else 'localhost'
+PORT = config.SERVER_PORT
 
 def create():
-    return _Connection(config.SERVER_HOST, config.SERVER_PORT)
+    return _Connection(HOST, PORT)
