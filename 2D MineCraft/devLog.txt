@@ -13,4 +13,24 @@ Basic graphics
 Features to Add:
 Camera focus on player
 Only draw tiles that fit in the window, and limit the number of tiles in the window
-Tile swapping (for breaking tiles)
+Tile swapping (for breaking tiles and placing tiles)
+Fix ceiling collision
+
+7-10-2017:
+
+Features to add:
+Item dropping
+Inventory
+Item picking up
+Item placing from inventory
+
+Features Implemented:
+Camera focus on player
+Only draw tiles that fit in the window, and limit the number of tiles in the window
+WASD controls
+Fix ceiling collision
+
+Color change in response to health
+Tile swapping
+Tile change in response to death
+Damage mechanism
