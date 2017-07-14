@@ -53,3 +53,15 @@ Implemented Features:
 Item Class
 Item Drawing
 Item Dropping
+
+7-14-2017:
+
+Features to add:
+Inventory
+Item Picking-Up
+Item Placing from Inventory
+Item Collisions (so they can fall)
+
+Sprite Pack into Image Object
+Tiles into image
+Cyan background

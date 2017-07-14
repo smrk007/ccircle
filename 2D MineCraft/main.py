@@ -38,7 +38,7 @@ player = Player(30, 30, window)
 
 while window.isOpen():
 
-    window.clear(0,0,0) # Or maybe I'll have to make it teal, or something of that sort
+    window.clear(135/256,206/256,250/256) # 135-206-250
     # Graphics
 
     shift = camShift(player, center)
