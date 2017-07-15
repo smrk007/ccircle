@@ -38,7 +38,7 @@ class Player:
 
         self.window.drawCircle(self.posX + shift[0], self.posY + shift[1], self.size, self.color[0], self.color[1], self.color[2])
 
-    def update(self, world, objects, window):
+    def update(self, world, objects, window, shift):
         if self.direction == 'left':
             self.target = (self.posX - 30, self.posY)
         if self.direction == 'right':
@@ -66,11 +66,13 @@ class Player:
 
         if ccircle.isMouseDown('left'):
             (mousePosX,mousePosY) = window.getMousePos()
-            mouseXSpace = floor(mousePosX/30)
-            mouseYSpace = floor(mousePosX/30)
-            if (self.xSpace != mouseXSpace and self.ySpace != mouseYSpace) and (world[mouseYSpace][mouseXSpace].type == 'air'):
-                world[mouseYSpace][mouseXSpace].setType('dirt')
-                self.inventory.pop(0)
+            mouseXSpace = floor((mousePosX-shift[0])/30)
+            mouseYSpace = floor((mousePosY-shift[1])/30)
+            print(mouseXSpace, mouseYSpace)
+            if (self.xSpace != mouseXSpace or self.ySpace != mouseYSpace) and (world[mouseYSpace][mouseXSpace].type == 'air'):
+                if len(self.inventory)>0:
+                    world[mouseYSpace][mouseXSpace].setType('dirt')
+                    self.inventory.pop(0)
 
         # Player X dimension collision and motion
         if self.posX + self.velX < self.xSpace * world[0][0].size + self.size and world[self.ySpace][self.xSpace - 1].solid:
