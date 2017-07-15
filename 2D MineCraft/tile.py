@@ -15,15 +15,25 @@ class Tile:
         self.type = "tile"
 
     #@abstractmethod
-    def draw(self, shift):
-        self.window.drawRect(self.xSpace*self.size + shift[0],
-                             self.ySpace*self.size +  shift[1],
-                             self.size,
-                             self.size,
-                             self.color[0],
-                             self.color[1],
-                             self.color[2],
-                             self.getAlpha())
+    def draw(self, shift, sprite):
+        if self.type == 'air'
+            self.window.drawRect(self.xSpace*self.size + shift[0],
+                                self.ySpace*self.size +  shift[1],
+                                self.size,
+                                self.size,
+                                self.color[0],
+                                self.color[1],
+                                self.color[2],
+                                self.getAlpha())
+        if self.type == dirt:
+            sprite[0].draw(self.xSpace*self.size + shift[0],
+                           self.ySpace*self.size + shift[1],
+                           self.size,
+                           self.size,
+                           32,
+                           0,
+                           16,
+                           16)
 
     def getAlpha(self):
         if self.type == 'air':

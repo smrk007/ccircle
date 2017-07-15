@@ -8,6 +8,8 @@ from item import *
 window = ccircle.Window("2D Minecraft", 450, 450)
 center = (225, 225)
 
+sprite = [ccircle.Image("MinecraftSpritePack.png")]
+
 # World Initialization
 worldSize = 100
 world = []
@@ -52,11 +54,11 @@ while window.isOpen():
     for i in range(topBound, botBound+1):
         for j in range(leftBound, rightBound+1):
             world[i][j].update(window, objects)
-            world[i][j].draw(shift)
+            world[i][j].draw(shift, sprite)
 
     for object in objects:
         object.update(world)
-        object.draw(shift)
+        object.draw(shift, sprite)
 
 
 

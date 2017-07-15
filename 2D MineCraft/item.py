@@ -9,7 +9,6 @@ class Item:
         self.velX = None
         self.velY = 0
         self.size = 16
-        self.image = False
         self.color = (1,1,1)
         self.window = window
 
@@ -25,17 +24,12 @@ class Item:
 
 
 
-    def draw(self, shift):
-        if not self.image:
-            self.window.drawRect(self.posX - self.size/2 + shift[0],
-                                 self.posY - self.size/2 + shift[1],
-                                 self.size,
-                                 self.size,
-                                 self.color[0],
-                                 self.color[1],
-                                 self.color[2])
-        else:
-            self.image.draw(self.posX - self.size/2 + shift[0],
-                            self.posY - self.size/2 + shift[1],
-                            self.size,
-                            self.size)
+    def draw(self, shift, sprite):
+        sprite[0].drawSub(self.posX - self.size/2 + shift[0],
+                          self.posY - self.size/2 + shift[1],
+                          self.size,
+                          self.size,
+                          0,
+                          32,
+                          16,
+                          16)

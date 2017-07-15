@@ -69,7 +69,6 @@ Cyan background
 7-15-2017:
 
 Features to add:
-Item Placing from Inventory
 
 Sprite Pack into Image Object
 Tiles into Image
@@ -80,5 +79,6 @@ Features Implemented:
 Inventory
 Item Picking-Up
 Item Collisions and Physics
+Item Placing from Inventory
 
 Coherent Cyan background and air tiles
