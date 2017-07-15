@@ -60,7 +60,7 @@ while window.isOpen():
 
 
 
-    player.update(world, objects)
+    player.update(world, objects, window)
     player.draw(shift)
 
     '''

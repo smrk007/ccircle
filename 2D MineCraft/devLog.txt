@@ -69,7 +69,6 @@ Cyan background
 7-15-2017:
 
 Features to add:
-Item Picking-Up
 Item Placing from Inventory
 
 Sprite Pack into Image Object
@@ -79,6 +78,7 @@ Randomized tile generation through perlin noise
 
 Features Implemented:
 Inventory
+Item Picking-Up
 Item Collisions and Physics
 
 Coherent Cyan background and air tiles
