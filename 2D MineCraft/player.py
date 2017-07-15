@@ -17,6 +17,7 @@ class Player:
         self.window = window
         self.xSpace = 0
         self.ySpace = 0
+        self.inventory = []
 
     def move(self, keys):
         self.velX = 0
@@ -37,7 +38,7 @@ class Player:
 
         self.window.drawCircle(self.posX + shift[0], self.posY + shift[1], self.size, self.color[0], self.color[1], self.color[2])
 
-    def update(self, world):
+    def update(self, world, objects):
         if self.direction == 'left':
             self.target = (self.posX - 30, self.posY)
         if self.direction == 'right':
@@ -55,6 +56,13 @@ class Player:
             tX = int(floor(self.target[0] / world[0][0].size))
             tY = int(floor(self.target[1] / world[0][0].size))
             world[tY][tX].health -= 0.3
+
+        length = len(objects)
+        for i in range(length):
+            if length > 0:
+                obj = objects[length - i - 1]
+                if sqrt((self.posY - obj.posY)**2 + (self.posX-obj.posX)**2)<self.size:
+                    self.inventory.append(objects.pop(length-i-1))
 
         # Player X dimension collision and motion
         if self.posX + self.velX < self.xSpace * world[0][0].size + self.size and world[self.ySpace][self.xSpace - 1].solid:
