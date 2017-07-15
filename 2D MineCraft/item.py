@@ -16,8 +16,8 @@ class Item:
     def update(self, world):
         ySpace = floor(self.posY/30)  # Assuming that the world tiles have a size of 30
         xSpace = floor(self.posX/30)  # Assuming that the world tiles haze a size of 30
-        if world[ySpace+1][xSpace].solid and (self.posY + self.velY) > (ySpace+1)*30:
-            self.posY = (ySpace+1)*30 - 8
+        if world[ySpace+1][xSpace].solid and (((self.posY + self.velY) > (ySpace+1)*30) or (self.posY >= (ySpace+1)*30 - self.size/2)):
+            self.posY = (ySpace+1)*30 - self.size/2
             self.velY = 0
         else:
             self.posY += self.velY
