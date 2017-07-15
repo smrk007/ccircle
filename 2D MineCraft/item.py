@@ -25,7 +25,7 @@ class Item:
 
 
     def draw(self, shift, sprite):
-        sprite[0].drawSub(self.posX - self.size/2 + shift[0],
+        sprite.drawSub(self.posX - self.size/2 + shift[0],
                           self.posY - self.size/2 + shift[1],
                           self.size,
                           self.size,

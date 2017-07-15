@@ -7,8 +7,9 @@ from item import *
 
 window = ccircle.Window("2D Minecraft", 450, 450)
 center = (225, 225)
+sprite = ccircle.Image("MinecraftSpritePack.png")
+print(sprite.getSize())
 
-sprite = [ccircle.Image("MinecraftSpritePack.png")]
 
 # World Initialization
 worldSize = 100
@@ -43,7 +44,6 @@ while window.isOpen():
 
     window.clear(skyColor[0], skyColor[1], skyColor[2]) # 135-206-250
     # Graphics
-
     shift = camShift(player, center)
 
     leftBound = max(floor(player.xSpace-center[0]/world[0][0].size), 0)

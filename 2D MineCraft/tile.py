@@ -16,7 +16,7 @@ class Tile:
 
     #@abstractmethod
     def draw(self, shift, sprite):
-        if self.type == 'air'
+        if self.type == 'air':
             self.window.drawRect(self.xSpace*self.size + shift[0],
                                 self.ySpace*self.size +  shift[1],
                                 self.size,
@@ -25,8 +25,8 @@ class Tile:
                                 self.color[1],
                                 self.color[2],
                                 self.getAlpha())
-        if self.type == dirt:
-            sprite[0].draw(self.xSpace*self.size + shift[0],
+        if self.type == 'dirt':
+            sprite.drawSub(self.xSpace*self.size + shift[0],
                            self.ySpace*self.size + shift[1],
                            self.size,
                            self.size,
