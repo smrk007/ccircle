@@ -65,3 +65,19 @@ Item Collisions (so they can fall)
 Sprite Pack into Image Object
 Tiles into image
 Cyan background
+
+7-15-2017:
+
+Features to add:
+Inventory
+Item Picking-Up
+Item Placing from Inventory
+Item Collisions and Physics
+
+Sprite Pack into Image Object
+Tiles into Image
+
+Randomized tile generation through perlin noise
+
+Features Implemented:
+Coherent Cyan background and air tiles

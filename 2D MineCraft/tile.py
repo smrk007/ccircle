@@ -4,10 +4,10 @@ from item import *
 class Tile:
     # __metaclass__ = ABCMeta
 
-    def __init__(self, posX, posY, window):
+    def __init__(self, xSpace, ySpace, window):
         self.size = 30
-        self.posX = posX
-        self.posY = posY
+        self.xSpace = xSpace
+        self.ySpace = ySpace
         self.health = 100
         self.color = (135/256, 206/256, 250/256)
         self.solid = False
@@ -16,14 +16,19 @@ class Tile:
 
     #@abstractmethod
     def draw(self, shift):
-        self.window.drawRect(self.posX*self.size + shift[0],
-                             self.posY*self.size +  shift[1],
+        self.window.drawRect(self.xSpace*self.size + shift[0],
+                             self.ySpace*self.size +  shift[1],
                              self.size,
                              self.size,
                              self.color[0],
                              self.color[1],
                              self.color[2],
-                             (100+self.health)/200)
+                             self.getAlpha())
+
+    def getAlpha(self):
+        if self.type == 'air':
+            return 0
+        return (100+self.health)/200
 
     def setType(self,tileType):
         if tileType == "dirt":
@@ -43,6 +48,6 @@ class Tile:
         if self.health > 100:
             self.health = 100
         if self.health < 0:
-            objects.append(Item(self.posX, self.posY, window))
+            objects.append(Item((self.xSpace+0.5)*self.size, (self.ySpace+0.5)*self.size, window))
             self.setType('air')
             self.health = 100

@@ -1,13 +1,12 @@
-from abc import *
-from math import *
 import ccircle
+from math import *
 
 class Item:
 
     def __init__(self, posX, posY, window):
-        self.posX = posX
-        self.posY = posY
-        self.velX = 0
+        self.posX = int(posX)
+        self.posY = int(posY)
+        self.velX = None
         self.velY = 0
         self.size = 16
         self.image = False
@@ -15,22 +14,28 @@ class Item:
         self.window = window
 
     def update(self, world):
-        pass
+        ySpace = floor(self.posY/30)  # Assuming that the world tiles have a size of 30
+        xSpace = floor(self.posX/30)  # Assuming that the world tiles haze a size of 30
+        if world[ySpace+1][xSpace].solid and (self.posY + self.velY) > (ySpace+1)*30:
+            self.posY = (ySpace+1)*30 - 8
+            self.velY = 0
+        else:
+            self.posY += self.velY
+            self.velY += 0.001
+
+
 
     def draw(self, shift):
         if not self.image:
-            self.window.drawRect(self.posX*30 - self.size/2 + shift[0] + 15,
-                             self.posY*30 - self.size/2 + shift[1] + 15,
-                             self.size,
-                             self.size,
-                             self.color[0],
-                             self.color[1],
-                             self.color[2])
+            self.window.drawRect(self.posX - self.size/2 + shift[0],
+                                 self.posY - self.size/2 + shift[1],
+                                 self.size,
+                                 self.size,
+                                 self.color[0],
+                                 self.color[1],
+                                 self.color[2])
         else:
-            self.image.draw(self.posX*30 - self.size/2 + shift[0] + 15,
-                            self.posY*30 - self.size/2 + shift[1] + 15,
+            self.image.draw(self.posX - self.size/2 + shift[0],
+                            self.posY - self.size/2 + shift[1],
                             self.size,
-                            self.size,
-                            self.color[0],
-                            self.color[1],
-                            self.color[2])
+                            self.size)
