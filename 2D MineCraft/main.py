@@ -35,10 +35,11 @@ for i in range(worldSize):
 objects = []
 player = Player(30, 30, window)
 
+skyColor = (135/256, 206/256, 250/256)
 
 while window.isOpen():
 
-    window.clear(135/256,206/256,250/256) # 135-206-250
+    window.clear(skyColor[0], skyColor[1], skyColor[2]) # 135-206-250
     # Graphics
 
     shift = camShift(player, center)

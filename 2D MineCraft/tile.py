@@ -9,7 +9,7 @@ class Tile:
         self.posX = posX
         self.posY = posY
         self.health = 100
-        self.color = [0,0,0]
+        self.color = (135/256, 206/256, 250/256)
         self.solid = False
         self.window = window
         self.type = "tile"
@@ -20,20 +20,25 @@ class Tile:
                              self.posY*self.size +  shift[1],
                              self.size,
                              self.size,
-                             self.color[0]*((200+self.health)/300),
-                             self.color[1]*((200+self.health)/300),
-                             self.color[2]*((200+self.health)/300))
+                             self.color[0],
+                             self.color[1],
+                             self.color[2],
+                             (100+self.health)/200)
 
     def setType(self,tileType):
         if tileType == "dirt":
             self.solid = True
             self.color = [1,1,1]
+            self.type = "dirt"
         if tileType == "air":
-            self.color = [0,0,0]
+            self.color = (135/256, 206/256, 250/256)
+            self.type = "air"
             self.solid = False
 
     def update(self, window, objects):
         if self.health < 100:
+            if self.type == "air":
+                self.health = 100
             self.health += 0.003
         if self.health > 100:
             self.health = 100
