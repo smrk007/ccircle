@@ -82,3 +82,13 @@ Item Collisions and Physics
 Item Placing from Inventory
 
 Coherent Cyan background and air tiles
+
+7-17-2017:
+
+Features Added:
+
+Health bar for damaged tiles
+
+Features to add:
+
+Perlin noise for terrain generation
