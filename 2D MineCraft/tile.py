@@ -44,7 +44,7 @@ class Tile:
                                  0)
             self.window.drawRect(self.xSpace*self.size + shift[0] + 6,
                                  self.ySpace*self.size + shift[1] + 12,
-                                 self.size - 12,
+                                 (self.size - 12)*(self.health/100),
                                  self.size - 24,
                                  1,
                                  0,
