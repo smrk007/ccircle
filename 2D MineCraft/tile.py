@@ -34,6 +34,21 @@ class Tile:
                            0,
                            16,
                            16)
+        if self.health < 100:
+            self.window.drawRect(self.xSpace*self.size + shift[0] + 5,
+                                 self.ySpace*self.size + shift[1] + 10,
+                                 self.size - 10,
+                                 self.size - 20,
+                                 0,
+                                 0,
+                                 0)
+            self.window.drawRect(self.xSpace*self.size + shift[0] + 6,
+                                 self.ySpace*self.size + shift[1] + 12,
+                                 self.size - 12,
+                                 self.size - 24,
+                                 1,
+                                 0,
+                                 0)
 
     def getAlpha(self):
         if self.type == 'air':
