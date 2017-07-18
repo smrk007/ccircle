@@ -87,6 +87,11 @@ Coherent Cyan background and air tiles
 
 Features Added:
 Health bar for damaged tiles
-
-Features to add:
 Perlin noise for terrain generation
+
+Summary and Ideas:
+Double layer of perlin noise to allow stone to exist underneath the dirt
+Some sort of sound system, such that a noise plays when attacking, when walking, when jumping, when a tile breaks, etc.
+Better user interface for the inventory (of particular importance with multiple types of tiles)
+Better player graphics (not a white circle)
+Crafting - Creation of objects
