@@ -29,7 +29,7 @@ class Item:
                           self.posY - self.size/2 + shift[1],
                           self.size,
                           self.size,
-                          0,
                           32,
+                          0,
                           16,
                           16)

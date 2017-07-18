@@ -13,10 +13,14 @@ print(sprite.getSize())
 
 # World Initialization
 worldSize = 100
+
+dirtBoundary = perlin(100)
+
 world = []
 for i in range(worldSize):
     row = []
     for j in range(worldSize):
+        '''
         if i == 4 and j == 7:
             tile = Tile(j, i, window)
             tile.setType('dirt')
@@ -32,7 +36,13 @@ for i in range(worldSize):
         else:
             tile = Tile(j, i, window)
             tile.setType('dirt')
-            row.append(tile)
+            row.append(tile)'''
+        if dirtBoundary[j] > i:
+            tile = Tile(j, i, window)
+            tile.setType('dirt')
+        else:
+            tile = Tile(j, i, window)
+            tile.setType('air')
     world.append(row)
 
 objects = []
