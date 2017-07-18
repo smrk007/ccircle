@@ -68,7 +68,6 @@ class Player:
             (mousePosX,mousePosY) = window.getMousePos()
             mouseXSpace = floor((mousePosX-shift[0])/30)
             mouseYSpace = floor((mousePosY-shift[1])/30)
-            print(mouseXSpace, mouseYSpace)
             if (self.xSpace != mouseXSpace or self.ySpace != mouseYSpace) and (world[mouseYSpace][mouseXSpace].type == 'air'):
                 if len(self.inventory)>0:
                     world[mouseYSpace][mouseXSpace].setType('dirt')
