@@ -20,7 +20,7 @@ def ten_interval(lower, upper, rnge):
         b = b* (j**2)
         c = lower*j
         val = a+b+c
-        ySpaces.append(floor(val*20 + 50))
+        ySpaces.append(floor(val*10 + 50))
     return ySpaces
 
 def perlin(rnge):

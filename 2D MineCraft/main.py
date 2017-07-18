@@ -4,17 +4,17 @@ from math import *
 from etc import *
 from player import *
 from item import *
+from noise import perlin
 
 window = ccircle.Window("2D Minecraft", 450, 450)
 center = (225, 225)
 sprite = ccircle.Image("MinecraftSpritePack.png")
-print(sprite.getSize())
 
 
 # World Initialization
 worldSize = 100
 
-dirtBoundary = perlin(100)
+dirtBoundary = perlin(200)
 
 world = []
 for i in range(worldSize):
@@ -37,13 +37,17 @@ for i in range(worldSize):
             tile = Tile(j, i, window)
             tile.setType('dirt')
             row.append(tile)'''
-        if dirtBoundary[j] > i:
+        if dirtBoundary[j] < i:
             tile = Tile(j, i, window)
             tile.setType('dirt')
+            row.append(tile)
         else:
             tile = Tile(j, i, window)
             tile.setType('air')
+            row.append(tile)
     world.append(row)
+
+
 
 objects = []
 player = Player(30, 30, window)
